@@ -12,7 +12,7 @@ cd "$HOME/gorcentral-preview"
 git sparse-checkout init --cone
 git sparse-checkout set preview/gor-central
 git checkout feature/gor-central
-read -r -p 'Usuario da previa: ' GOR_PREVIEW_USER\nread -r -s -p 'Senha da previa (minimo 16 caracteres): ' GOR_PREVIEW_PASSWORD\necho\nexport GOR_PREVIEW_USER GOR_PREVIEW_PASSWORD\nnode preview/gor-central/server.mjs
+read -r -p 'Usuario da previa: ' GOR_PREVIEW_USER\nread -r -s -p 'Senha da previa (minimo 8 caracteres): ' GOR_PREVIEW_PASSWORD\necho\nexport GOR_PREVIEW_USER GOR_PREVIEW_PASSWORD\nnode preview/gor-central/server.mjs
 ```
 
 A aplicação escuta em `127.0.0.1:41040`. Em outro terminal do seu computador, abra túnel SSH (ajuste o host conforme seu acesso):
