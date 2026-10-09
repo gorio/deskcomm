@@ -96,6 +96,7 @@ export default async function LoginPage({
             {t("Esqueci minha senha")}
           </Link>
         </p>
+        {process.env.GOR_CENTRAL_MODE !== "true" && (
         <p className="text-muted-foreground">
           {t("Não tem conta?")}{" "}
           <Link
@@ -105,6 +106,7 @@ export default async function LoginPage({
             {t("Criar conta")}
           </Link>
         </p>
+        )}
       </div>
     </div>
   );
