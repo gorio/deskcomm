@@ -10,8 +10,8 @@ if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('POR
 // Require both credentials before listening, so the preview fails closed.
 const previewUser = process.env.GOR_PREVIEW_USER || '';
 const previewPassword = process.env.GOR_PREVIEW_PASSWORD || '';
-if (!previewUser || !previewPassword || previewPassword.length < 16) {
-  throw new Error('Defina GOR_PREVIEW_USER e GOR_PREVIEW_PASSWORD (minimo 16 caracteres) antes de iniciar');
+if (!previewUser || !previewPassword || previewPassword.length < 8) {
+  throw new Error('Defina GOR_PREVIEW_USER e GOR_PREVIEW_PASSWORD (minimo 8 caracteres) antes de iniciar');
 }
 
 const page = await readFile(new URL('./index.html', import.meta.url));
