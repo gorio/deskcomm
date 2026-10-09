@@ -1,6 +1,6 @@
 # GOR Central — prévia interativa
 
-Esta prévia é um **protótipo de interface**, independente do Next.js e do Supabase. Não tem login, banco, IA ou integração real com YouTube/Instagram. **Não exponha diretamente à internet.** O servidor Node escuta somente em `127.0.0.1`.
+Esta prévia é um **protótipo de interface**, independente do Next.js e do Supabase. Não tem login de produção, banco, IA ou integração real com YouTube/Instagram. A partir desta versão, o servidor exige usuário e senha temporários de demonstração. **Não exponha diretamente à internet.** O servidor Node escuta somente em `127.0.0.1`.
 
 ## Testar em ambiente isolado
 
@@ -12,7 +12,7 @@ cd "$HOME/gorcentral-preview"
 git sparse-checkout init --cone
 git sparse-checkout set preview/gor-central
 git checkout feature/gor-central
-node preview/gor-central/server.mjs
+read -r -p 'Usuario da previa: ' GOR_PREVIEW_USER\nread -r -s -p 'Senha da previa (minimo 16 caracteres): ' GOR_PREVIEW_PASSWORD\necho\nexport GOR_PREVIEW_USER GOR_PREVIEW_PASSWORD\nnode preview/gor-central/server.mjs
 ```
 
 A aplicação escuta em `127.0.0.1:41040`. Em outro terminal do seu computador, abra túnel SSH (ajuste o host conforme seu acesso):
@@ -36,3 +36,9 @@ Abra `http://localhost:41040` no computador que iniciou o túnel. Caso a porta l
 ## Próximas fases
 
 Implementar autenticação e MFA reais, Supabase isolado, APIs de publicação, workers de agendamento, controle de acesso e testes. A prévia não substitui essas etapas.
+
+## Atualizar uma instalação de teste existente
+
+Pare apenas o processo Node da prévia com `Ctrl+C` no terminal em que ela está rodando. No diretório `$HOME/gorcentral-preview`, execute `git pull --ff-only` e inicie novamente com as variáveis `GOR_PREVIEW_USER` e `GOR_PREVIEW_PASSWORD` definidas sem colocá-las na linha de comando ou no histórico.
+
+A autenticação Basic é uma **barreira temporária** para testar a interface, não substitui contas individuais, MFA, RBAC ou uma configuração HTTPS. Não configure o Apache para expor a prévia antes de TLS, controle de acesso e serviço isolado estarem validados. Em HTTP local, use apenas o túnel SSH.
