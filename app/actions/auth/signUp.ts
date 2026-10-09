@@ -60,6 +60,12 @@ export async function signUp(
    */
   inviteToken?: string,
 ): Promise<SignUpResult> {
+  // GOR Central: nenhuma conta pode ser criada por autoatendimento, nem com convite.
+  // Este bloqueio é no servidor; esconder a página não seria suficiente.
+  if (process.env.GOR_CENTRAL_MODE === "true") {
+    return { ok: false, error: "signup_failed" };
+  }
+
   const temConvite = typeof inviteToken === "string" && inviteToken.trim() !== "";
   const parsed = temConvite
     ? signupComConviteSchema.safeParse(input)
