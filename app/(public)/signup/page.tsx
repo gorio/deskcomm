@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+
 
 import { SignupForm } from "@/components/auth/SignupForm";
 import { branding } from "@/lib/branding";
@@ -23,6 +25,8 @@ export default async function SignupPage({
 }: {
   searchParams: Promise<{ invite?: string }>;
 }) {
+  if (process.env.GOR_CENTRAL_MODE === "true") notFound();
+
   const { invite } = await searchParams;
   const payload = invite ? verifyInviteToken(invite) : null;
   const convite = invite && payload ? { token: invite, email: payload.email } : undefined;
